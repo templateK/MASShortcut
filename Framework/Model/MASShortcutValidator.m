@@ -33,7 +33,8 @@
     // Allow any hotkey containing Control or Command modifier
     BOOL includesCommand = ((modifiers & NSEventModifierFlagCommand) > 0);
     BOOL includesControl = ((modifiers & NSEventModifierFlagControl) > 0);
-    if (includesCommand || includesControl) return YES;
+    BOOL includesShift   = ((modifiers & NSEventModifierFlagShift  ) > 0);
+    if (includesCommand || includesControl || includesShift) return YES;
 
     // Allow Option key only in selected cases
     BOOL includesOption = ((modifiers & NSEventModifierFlagOption) > 0);
