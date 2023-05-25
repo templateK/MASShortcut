@@ -153,9 +153,7 @@ static const CGFloat MASButtonFontSize = 11;
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Wtautological-compare"
     if (_recording == NO && (&NSAccessibilityPriorityKey != NULL)) {
-        NSString* msg = _shortcutValue ?
-                         MASLocalizedString(@"Shortcut set", @"VoiceOver: Shortcut set") :
-                         MASLocalizedString(@"Shortcut cleared", @"VoiceOver: Shortcut cleared");
+        NSString* msg = _shortcutValue ? @"Shortcut set" : @"Shortcut cleared";
         NSDictionary *announcementInfo = @{
             NSAccessibilityAnnouncementKey : msg,
             NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
@@ -239,10 +237,10 @@ static const CGFloat MASButtonFontSize = 11;
         [self getShortcutRect:&shortcutRect hintRect:NULL];
         NSString *title = (self.recording
                            ? (_hinting
-                              ? MASLocalizedString(@"Use Old Shortcut", @"Cancel action button for non-empty shortcut in recording state")
+                              ? @"Use Old Shortcut"
                               : (self.shortcutPlaceholder.length > 0
                                  ? self.shortcutPlaceholder
-                                 : MASLocalizedString(@"Type New Shortcut", @"Non-empty shortcut button in recording state")))
+                                 : @"Type New Shortcut"))
                            : _shortcutValue ? _shortcutValue.description : @"");
         [self drawInRect:shortcutRect withTitle:title alignment:NSTextAlignmentCenter state:self.isRecording ? NSControlStateValueOn : NSControlStateValueOff];
     }
@@ -254,15 +252,15 @@ static const CGFloat MASButtonFontSize = 11;
             CGRect shortcutRect;
             [self getShortcutRect:&shortcutRect hintRect:NULL];
             NSString *title = (_hinting
-                               ? MASLocalizedString(@"Cancel", @"Cancel action button in recording state")
+                               ? @"Cancel"
                                : (self.shortcutPlaceholder.length > 0
                                   ? self.shortcutPlaceholder
-                                  : MASLocalizedString(@"Type Shortcut", @"Empty shortcut button in recording state")));
+                                  : @"Type Shortcut"));
             [self drawInRect:shortcutRect withTitle:title alignment:NSTextAlignmentCenter state:NSControlStateValueOn];
         }
         else
         {
-            [self drawInRect:self.bounds withTitle:MASLocalizedString(@"Record Shortcut", @"Empty shortcut button in normal state")
+            [self drawInRect:self.bounds withTitle:@"Record Shortcut"
                    alignment:NSTextAlignmentCenter state:NSControlStateValueOff];
         }
     }
@@ -417,10 +415,10 @@ void *kUserDataHint = &kUserDataHint;
 - (NSString *)view:(NSView *)view stringForToolTip:(NSToolTipTag)tag point:(CGPoint)point userData:(void *)data
 {
     if (data == kUserDataShortcut) {
-        return MASLocalizedString(@"Click to record new shortcut", @"Tooltip for non-empty shortcut button");
+        return @"Click to record new shortcut";
     }
     else if (data == kUserDataHint) {
-        return MASLocalizedString(@"Delete shortcut", @"Tooltip for hint button near the non-empty shortcut");
+        return @"Delete shortcut";
     }
     return @"";
 }
@@ -475,13 +473,12 @@ void *kUserDataHint = &kUserDataHint;
                             // Prevent cancel of recording when Alert window is key
                             [weakSelf activateResignObserver:NO];
                             [weakSelf activateEventMonitoring:NO];
-                            NSString *format = MASLocalizedString(@"The key combination %@ cannot be used",
-                                                                 @"Title for alert when shortcut is already used");
+                            NSString *format = @"The key combination %@ cannot be used";
                             NSAlert* alert = [[NSAlert alloc]init];
                             alert.alertStyle = NSAlertStyleCritical;
                             alert.informativeText = explanation;
                             alert.messageText = [NSString stringWithFormat:format, shortcut];
-                            [alert addButtonWithTitle:MASLocalizedString(@"OK", @"Alert button when shortcut is already used")];
+                            [alert addButtonWithTitle:@"OK"];
 
                             [alert runModal];
                             weakSelf.shortcutPlaceholder = nil;
@@ -588,15 +585,13 @@ void *kUserDataHint = &kUserDataHint;
 
 - (NSString *)accessibilityHelp
 {
-    return MASLocalizedString(@"To record a new shortcut, click this button, and then type the"
-                             @" new shortcut, or press delete to clear an existing shortcut.",
-                             @"VoiceOver shortcut help");
+    return @"To record a new shortcut, click this button, and then type the new shortcut, or press delete to clear an existing shortcut.";
 }
 
 - (NSString *)accessibilityLabel
 {
     NSString* title = _shortcutValue.description ?: @"Empty";
-    title = [title stringByAppendingFormat:@" %@", MASLocalizedString(@"keyboard shortcut", @"VoiceOver title")];
+    title = [title stringByAppendingFormat:@" %@", @"keyboard shortcut"];
     return title;
 }
 

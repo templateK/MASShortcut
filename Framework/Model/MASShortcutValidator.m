@@ -74,9 +74,7 @@
         
         if (equalFlags && equalHotkeyLowercase) {
             if (explanation) {
-                *explanation = MASLocalizedString(@"This shortcut cannot be used because it is already used by the menu item ‘%@’.",
-                                                     @"Message for alert when shortcut is already used");
-                *explanation = [NSString stringWithFormat:*explanation, menuItem.title];
+                *explanation = [NSString stringWithFormat:@"This shortcut cannot be used because it is already used by the menu item ‘%@’.", menuItem.title];
             }
             return YES;
         }
@@ -101,10 +99,7 @@
                 ([(__bridge NSNumber *)enabled boolValue])) {
 
                 if (explanation) {
-                    *explanation = MASLocalizedString(@"This combination cannot be used because it is already used by a system-wide "
-                                                     @"keyboard shortcut.\nIf you really want to use this key combination, most shortcuts "
-                                                     @"can be changed in the Keyboard & Mouse panel in System Preferences.",
-                                                     @"Message for alert when shortcut is already used by the system");
+                    *explanation = @"This combination cannot be used because it is already used by a system-wide ";
                 }
                 return YES;
             }
