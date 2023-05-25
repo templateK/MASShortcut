@@ -1,10 +1,9 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.2
 
 import PackageDescription
 
 let package = Package(
     name: "MASShortcut",
-    defaultLocalization: "en",
     platforms: [
         .macOS(.v10_11),
     ],
@@ -25,9 +24,6 @@ let package = Package(
                 "Info.plist",
                 "MASShortcut.modulemap",
                 "Prefix.pch"
-            ],
-            resources: [
-                .process("Resources")
             ],
             publicHeadersPath: "include"
         )
