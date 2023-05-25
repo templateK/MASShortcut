@@ -10,4 +10,3 @@
  NSLocalizedString throughout the framework, it wouldn’t work
  properly.
 */
-NSString *MASLocalizedString(NSString *key, NSString *comment);
